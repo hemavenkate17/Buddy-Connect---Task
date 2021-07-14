@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inventory Management</title>
+</head>
+<body>
+    <center>
+        <div>
+            @using (Html.BeginForm("ListOfPurchaseOrderAgainstCustomer", "Inventory", FormMethod.Post))
+            {
+                <input type="submit" id="btn1" value="List Of Purchase Order Against Customer" />
+            }
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+            @using (Html.BeginForm("MonthwiseCustomerReportwithProducts", "Inventory", FormMethod.Post))
+            {
+                <input type="submit" id="btn2" value="Monthwise Customer Report With Products" />
+            }
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+            @using (Html.BeginForm("ProductSalesReportMonthwise", "Inventory", FormMethod.Post))
+            {
+                <input type="submit" id="btn2" value="Product Sales Report Monthwise" />
+            }
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+            @using (Html.BeginForm("MaximumOrderPriceOrderandMonthwise", "Inventory", FormMethod.Post))
+            {
+                <input type="submit" id="btn2" value="MaximumOrder PriceOrder and Monthwise" />
+            }
+        </div>
+
+    </center>
+</body>
+</html>

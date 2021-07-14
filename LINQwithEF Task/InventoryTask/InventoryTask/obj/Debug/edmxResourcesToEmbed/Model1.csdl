@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_PurchaseOrder" Relationship="Self.Fk_Cust" FromRole="tbl_Customer" ToRole="tbl_PurchaseOrder" />
+  </EntityType>
+  <EntityType Name="tbl_Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DiscountPercentage" Type="Double" />
+    <NavigationProperty Name="tbl_PurchaseOrderDetail" Relationship="Self.Fk_ProductID" FromRole="tbl_Product" ToRole="tbl_PurchaseOrderDetail" />
+  </EntityType>
+  <EntityType Name="tbl_PurchaseOrder">
+    <Key>
+      <PropertyRef Name="POID" />
+    </Key>
+    <Property Name="POID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Amount" Type="Double" />
+    <NavigationProperty Name="tbl_Customer" Relationship="Self.Fk_Cust" FromRole="tbl_PurchaseOrder" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_PurchaseOrderDetail" Relationship="Self.Fk_POID" FromRole="tbl_PurchaseOrder" ToRole="tbl_PurchaseOrderDetail" />
+  </EntityType>
+  <EntityType Name="tbl_PurchaseOrderDetail">
+    <Key>
+      <PropertyRef Name="PODID" />
+    </Key>
+    <Property Name="PODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="POID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Qty" Type="Int32" />
+    <NavigationProperty Name="tbl_Product" Relationship="Self.Fk_ProductID" FromRole="tbl_PurchaseOrderDetail" ToRole="tbl_Product" />
+    <NavigationProperty Name="tbl_PurchaseOrder" Relationship="Self.Fk_POID" FromRole="tbl_PurchaseOrderDetail" ToRole="tbl_PurchaseOrder" />
+  </EntityType>
+  <Association Name="Fk_Cust">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
+    <End Role="tbl_PurchaseOrder" Type="Self.tbl_PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="tbl_PurchaseOrder">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_ProductID">
+    <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="0..1" />
+    <End Role="tbl_PurchaseOrderDetail" Type="Self.tbl_PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tbl_PurchaseOrderDetail">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_POID">
+    <End Role="tbl_PurchaseOrder" Type="Self.tbl_PurchaseOrder" Multiplicity="0..1" />
+    <End Role="tbl_PurchaseOrderDetail" Type="Self.tbl_PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_PurchaseOrder">
+        <PropertyRef Name="POID" />
+      </Principal>
+      <Dependent Role="tbl_PurchaseOrderDetail">
+        <PropertyRef Name="POID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InventoryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" />
+    <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" />
+    <EntitySet Name="tbl_PurchaseOrder" EntityType="Self.tbl_PurchaseOrder" />
+    <EntitySet Name="tbl_PurchaseOrderDetail" EntityType="Self.tbl_PurchaseOrderDetail" />
+    <AssociationSet Name="Fk_Cust" Association="Self.Fk_Cust">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_ProductID" Association="Self.Fk_ProductID">
+      <End Role="tbl_Product" EntitySet="tbl_Product" />
+      <End Role="tbl_PurchaseOrderDetail" EntitySet="tbl_PurchaseOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_POID" Association="Self.Fk_POID">
+      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+      <End Role="tbl_PurchaseOrderDetail" EntitySet="tbl_PurchaseOrderDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<InventoryTask.Models.MaximumOrderPrice>
+
+@{
+    ViewBag.Title = "MaximumOrderPriceOrderandMonthwise";
+}
+
+<h2>MaximumOrderPriceOrderandMonthwise</h2>
+
+
+<table id="1" class="table">
+    <tr>
+        <th>Month</th>
+        <th>POID</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Month.Date.Value.ToString("MMMM")- @item.Month.Date.Value.Year</td>
+    <td>@item.POID.POID</td>
+    <td>@item.Price.Price</td>
+</tr>
+    }
+</table>
