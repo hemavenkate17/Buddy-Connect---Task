@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DropdownAjaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DropdownAjax.dbo.tbl_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DropdownAjax.dbo.tbl_District' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_District">
+    <Key>
+      <PropertyRef Name="DistricID" />
+    </Key>
+    <Property Name="DistricID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" />
+    <Property Name="CId" Type="int" />
+    <Property Name="SId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DropdownAjax.dbo.tbl_State' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" />
+    <Property Name="CId" Type="int" />
+  </EntityType>
+  <EntityContainer Name="DropdownAjaxModelStoreContainer">
+    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tbl_Country].[CountryID] AS [CountryID], 
+    [tbl_Country].[Name] AS [Name]
+    FROM [dbo].[tbl_Country] AS [tbl_Country]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_District" EntityType="Self.tbl_District" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tbl_District].[DistricID] AS [DistricID], 
+    [tbl_District].[Name] AS [Name], 
+    [tbl_District].[CId] AS [CId], 
+    [tbl_District].[SId] AS [SId]
+    FROM [dbo].[tbl_District] AS [tbl_District]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_State" EntityType="Self.tbl_State" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tbl_State].[StateID] AS [StateID], 
+    [tbl_State].[Name] AS [Name], 
+    [tbl_State].[CId] AS [CId]
+    FROM [dbo].[tbl_State] AS [tbl_State]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

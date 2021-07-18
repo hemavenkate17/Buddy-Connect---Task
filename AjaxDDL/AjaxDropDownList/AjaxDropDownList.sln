@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxDropDownList", "AjaxDropDownList.csproj", "{7D8BF2E0-231B-4C90-98CB-1FA8D8DD79DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D8BF2E0-231B-4C90-98CB-1FA8D8DD79DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8BF2E0-231B-4C90-98CB-1FA8D8DD79DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8BF2E0-231B-4C90-98CB-1FA8D8DD79DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8BF2E0-231B-4C90-98CB-1FA8D8DD79DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9792E5B7-831E-4E03-BBA0-F18F279C4A5D}
+	EndGlobalSection
+EndGlobal
