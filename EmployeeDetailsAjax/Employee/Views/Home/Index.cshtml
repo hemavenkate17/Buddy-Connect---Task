@@ -1,0 +1,132 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+<h1>Employee Information</h1>
+<body style="font-family: Arial">
+    <table border="1" style="border-collapse:collapse">
+        <tr>
+            <td>FirstName</td>
+            <td>
+                <input type="text" name="FirstName" id="FirstName" />
+            </td>
+        </tr>
+        <tr>
+            <td>LastName</td>
+            <td>
+                <input type="text" name="LastName" id="LastName" />
+            </td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <input type="radio" name="gender" id="male" value="male" />Male
+                <input type="radio" name="gender" id="Female" value="Female" />Female
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                <input type="text" name="email" id="email" />
+            </td>
+        </tr>
+        <tr>
+            <td>Skills</td>
+            <td>
+                <input type="checkbox" class="Skillset" name="mvc" id="mvc" value="mvc" />MVC
+                <input type="checkbox" class="Skillset" name="jquery" id="jquery" value="jquery" />Jquery
+                <input type="checkbox" class="Skillset" name="sql" id="sql" value="sql" />SQL
+
+            </td>
+        </tr>
+    </table>
+    <br />
+
+    <div>
+        <button type="button" value="Save" onclick="save()" class="btn btn-primary">
+            Save
+        </button>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <table id="tblEmployee" border="1" style="border-collapse: collapse" class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Skills</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+
+    </table>
+
+</body>
+
+<script>
+    function save() {
+
+        var selectedGender = $("#male").prop('checked') ? "Male" : "Female";
+
+        var selectedSkills = [];
+        $(".Skillset:checked").each(function (item) {
+            selectedSkills.push(this.value);
+        });
+        var obj = {
+            FirstName: $("#FirstName").val(),
+            LastName: $("#LastName").val(),
+            Gender: selectedGender,
+            Email: $("#email").val(),
+            Skills: selectedSkills
+
+
+        };
+        $.ajax({
+            type: "POST",
+            url: "Home/saveEmpInfo",
+            data: obj,
+            dataType: 'json',
+            success: function (resp) {
+                var stringifiedObj = JSON.stringify(resp);
+                var parsedData = JSON.parse(stringifiedObj);
+                if (resp.msg == "success") {
+
+                    var EmployeeTable = $('#tblEmployee tbody');
+                    EmployeeTable.empty();
+
+                    $(resp).each(function (index, emp) {
+                        EmployeeTable.append('<tr><td>' + emp.data.firstName
+                            + '</td><td>' + emp.data.lastName
+                            + '</td><td>' + emp.data.gender
+                            + '</td><td>' + emp.data.email
+                            + '</td><td>' + emp.data.skills
+                            + '</td></tr>');
+
+                    });
+                }
+                else if (resp.msg == "InvalidEmail") {
+                    alert("This email is not available in our database");
+                }
+            },
+            error: function (resp) {
+                alert('error occured while processing your request');
+            }
+        });
+
+    }
+</script>
+
