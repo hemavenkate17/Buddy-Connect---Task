@@ -20,6 +20,7 @@ create table tbl_State
 (
 StateID int identity(1,1),
 Name varchar(20),
+CId int,
 Constraint Pk_SID Primary key (CountryID)
 )
 
@@ -41,6 +42,8 @@ create table tbl_District
 (
 DistrictID int identity(100,1),
 Name varchar(20),
+CId int,
+SId int,
 Constraint Pk_DID Primary key (DistrictID)
 )
 
